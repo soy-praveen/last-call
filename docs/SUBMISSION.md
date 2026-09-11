@@ -53,7 +53,7 @@ What is in the repo:
 - GitHub: https://github.com/soy-praveen/last-call
 - Live app: https://soy-praveen.github.io/last-call/
 - Arena contract (Shannon): 0x4c02a4fde4887eaf7a408a9646de34accf75a386
-- Demo video: _YouTube link_
+- Demo video: https://youtu.be/0lY8YaKRCfA
 
 ## Form fields
 

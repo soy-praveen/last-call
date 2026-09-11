@@ -6,9 +6,9 @@ Everyone stakes into one pot. Every round is a live DreamDEX window (BTC or ETH,
 
 Built for the Somnia x DreamDEX Event Contracts Hackathon. Live on Somnia Shannon testnet.
 
-- Web app: _link in the submission_
+- Web app: https://soy-praveen.github.io/last-call/
 - Arena contract: `contracts/out/deployment.json` after deploy (address also in the app header)
-- Demo video: _link in the submission_
+- Demo video: https://youtu.be/0lY8YaKRCfA
 
 ## Why this exists
 

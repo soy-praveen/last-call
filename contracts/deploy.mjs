@@ -1,5 +1,5 @@
 // Deploy LastCall to Somnia Shannon. Usage: node contracts/deploy.mjs
-import { createPublicClient, createWalletClient, http, formatEther } from "viem";
+import { createPublicClient, createWalletClient, http, formatEther, encodeDeployData } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { somniaTestnet } from "viem/chains";
 import { SOMNIA_TESTNET_ADDRESSES } from "@somnia-chain/markets-sdk";
@@ -17,7 +17,7 @@ const collateral = SOMNIA_TESTNET_ADDRESSES.testUsdc;
 const module = SOMNIA_TESTNET_ADDRESSES.binaryModule;
 console.log("deployer", account.address, "balance", formatEther(await pub.getBalance({ address: account.address })), "STT");
 
-const gas = await pub.estimateContractGas({ abi, bytecode, args: [collateral, module], account });
+const gas = await pub.estimateGas({ account, data: encodeDeployData({ abi, bytecode, args: [collateral, module] }) });
 const fees = await pub.estimateFeesPerGas();
 const hash = await wallet.deployContract({
   abi,

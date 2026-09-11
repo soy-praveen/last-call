@@ -175,7 +175,7 @@ export async function fetchLiveMarkets(): Promise<LiveMarket[]> {
   for (let i = 0; i < 4; i++) {
     const to = head - BigInt(i * 1000);
     try {
-      const logs = await pub.getLogs({ address: MARKET_CREATOR, event: marketCreatedEvent, fromBlock: to - 999n, toBlock: to });
+      const logs = await pub.getLogs({ event: marketCreatedEvent, fromBlock: to - 999n, toBlock: to });
       for (const l of logs) {
         const a = l.args;
         if (!a.marketId || !a.pool || !a.market) continue;
@@ -210,32 +210,38 @@ export type FeedItem = {
 
 const eventAbis = (abi as any[]).filter((x) => x.type === "event");
 
-export async function fetchFeed(lobbyId: number, fromBlock: bigint, toBlock?: bigint): Promise<{ items: FeedItem[]; head: bigint }> {
+export async function fetchFeed(lobbyId: number, fromBlock: bigint, toBlock?: bigint): Promise<{ items: FeedItem[]; head: bigint; raw: number; pages: number; err: string }> {
   const head = toBlock ?? (await pub.getBlockNumber());
+  const ranges: [bigint, bigint][] = [];
+  for (let from = fromBlock; from <= head && ranges.length < 120; from += 1000n) {
+    ranges.push([from, from + 999n > head ? head : from + 999n]);
+  }
   const items: FeedItem[] = [];
-  let from = fromBlock;
-  let pages = 0;
-  while (from <= head && pages < 60) {
-    const to = from + 999n > head ? head : from + 999n;
-    try {
-      const logs = await pub.getLogs({ address: ARENA, events: eventAbis as any, fromBlock: from, toBlock: to });
-      for (const l of logs) {
+  let raw = 0;
+  let err = "";
+  // pages are independent, fetch them in parallel batches
+  for (let i = 0; i < ranges.length; i += 8) {
+    const batch = ranges.slice(i, i + 8);
+    const results = await Promise.all(
+      batch.map(([from, to]) => pub.getLogs({ address: ARENA, events: eventAbis as any, fromBlock: from, toBlock: to }).catch((e) => ((err = String(e?.shortMessage || e?.message || e).slice(0, 160)), console.warn("feed page failed", e), [])))
+    );
+    for (const logs of results) {
+      raw += (logs as any[]).length;
+      for (const l of logs as any[]) {
         try {
           const d = decodeEventLog({ abi, data: l.data, topics: l.topics }) as any;
           const args = d.args || {};
           if (args.lobbyId !== undefined && Number(args.lobbyId) !== lobbyId) continue;
           items.push({ key: `${l.transactionHash}-${l.logIndex}`, block: l.blockNumber, tx: l.transactionHash, name: d.eventName, args });
-        } catch {
-          /* skip undecodable */
+        } catch (e) {
+          err = "decode: " + String((e as any)?.message).slice(0, 120);
+          console.warn("feed decode failed", e);
         }
       }
-    } catch {
-      /* skip page */
     }
-    from = to + 1n;
-    pages++;
   }
-  return { items, head };
+  items.sort((a, b) => (a.block === b.block ? 0 : a.block < b.block ? -1 : 1));
+  return { items, head, raw, pages: ranges.length, err };
 }
 
 // ---------------------------------------------------------------- writes

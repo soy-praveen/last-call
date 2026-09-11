@@ -1,1315 +1,1317 @@
 {
- "address": "0x0000000000000000000000000000000000000000",
- "collateral": "0x70a86D8842FB63C4Ad2b7cdddF530eBf1BB25d8E",
- "module": "0x3ecC694Cef705358864a646142ac17A90E29e388",
- "chainId": 50312,
- "block": 0,
- "abi": [
-  {
-   "inputs": [
+  "address": "0x4c02a4fde4887eaf7a408a9646de34accf75a386",
+  "collateral": "0x70a86D8842FB63C4Ad2b7cdddF530eBf1BB25d8E",
+  "module": "0x3ecC694Cef705358864a646142ac17A90E29e388",
+  "chainId": 50312,
+  "tx": "0x654a555f8aa14ec5c3737f57b2db49e8818df7ed5f2ad5fd7b4a41e2d9ec5953",
+  "block": 485329784,
+  "deployer": "0x740fa3C9768C68Cc709F363131663dd72FA6De59",
+  "abi": [
     {
-     "internalType": "address",
-     "name": "collateral_",
-     "type": "address"
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "collateral_",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "module_",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
-     "internalType": "address",
-     "name": "module_",
-     "type": "address"
+      "inputs": [],
+      "name": "AlreadyJoined",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "BadMarket",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "BadState",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CallsClosed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "LobbyFull",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotAlive",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotAllowed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotEnoughPlayers",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NothingToClaim",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "TooEarly",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "TooLate",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "round",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum LastCall.Side",
+          "name": "side",
+          "type": "uint8"
+        }
+      ],
+      "name": "Called",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Claimed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "round",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum LastCall.Side",
+          "name": "called",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum LastCall.Side",
+          "name": "winner",
+          "type": "uint8"
+        }
+      ],
+      "name": "Eliminated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "players",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "pot",
+          "type": "uint256"
+        }
+      ],
+      "name": "Joined",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        }
+      ],
+      "name": "Left",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "LobbyCancelled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "creator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "stake",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "minPlayers",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "maxPlayers",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "maxRounds",
+          "type": "uint8"
+        }
+      ],
+      "name": "LobbyCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "survivors",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "pot",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "payoutPerSurvivor",
+          "type": "uint256"
+        }
+      ],
+      "name": "LobbyFinished",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "round",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "setsMinted",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum LastCall.Side",
+          "name": "bookSide",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "bookFilled",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "spent",
+          "type": "uint256"
+        }
+      ],
+      "name": "RoundExecuted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "round",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum LastCall.Side",
+          "name": "winner",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "voided",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "returned",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "eliminated",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "alive",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "pot",
+          "type": "uint256"
+        }
+      ],
+      "name": "RoundFinalized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "round",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "pool",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "market",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "marketId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "expiry",
+          "type": "uint64"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "callDeadline",
+          "type": "uint64"
+        }
+      ],
+      "name": "RoundStarted",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "LOCK_BEFORE",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAX_PLAYERS",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MIN_LEAD",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "alive",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "enum LastCall.Side",
+          "name": "side",
+          "type": "uint8"
+        }
+      ],
+      "name": "call",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "calls",
+      "outputs": [
+        {
+          "internalType": "enum LastCall.Side",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "cancelLobby",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "claim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "claimed",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "collateral",
+      "outputs": [
+        {
+          "internalType": "contract IERC20",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "stake",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint8",
+          "name": "minPlayers",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint8",
+          "name": "maxPlayers",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint8",
+          "name": "maxRounds",
+          "type": "uint8"
+        }
+      ],
+      "name": "createLobby",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "eliminatedInRound",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "executeRound",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "finalizeRound",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getLobby",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "creator",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "stake",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint8",
+              "name": "minPlayers",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint8",
+              "name": "maxPlayers",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint8",
+              "name": "maxRounds",
+              "type": "uint8"
+            },
+            {
+              "internalType": "enum LastCall.LobbyState",
+              "name": "state",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "pot",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "alive",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "roundCount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "payoutPerSurvivor",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint64",
+              "name": "createdAt",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "createdBlock",
+              "type": "uint64"
+            }
+          ],
+          "internalType": "struct LastCall.Lobby",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPlayerStates",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "addrs",
+          "type": "address[]"
+        },
+        {
+          "internalType": "bool[]",
+          "name": "isAlive",
+          "type": "bool[]"
+        },
+        {
+          "internalType": "enum LastCall.Side[]",
+          "name": "currentCall",
+          "type": "uint8[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "outRound",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPlayers",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "round",
+          "type": "uint256"
+        }
+      ],
+      "name": "getRound",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "pool",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "market",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "outcomeToken",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "marketId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "yesId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "noId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint64",
+              "name": "expiry",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "callDeadline",
+              "type": "uint64"
+            },
+            {
+              "internalType": "enum LastCall.RoundState",
+              "name": "state",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "upCount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "downCount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "upStake",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "downStake",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "setsMinted",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "bookFilled",
+              "type": "uint256"
+            },
+            {
+              "internalType": "enum LastCall.Side",
+              "name": "bookSide",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "spent",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "returned",
+              "type": "uint256"
+            },
+            {
+              "internalType": "enum LastCall.Side",
+              "name": "winner",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bool",
+              "name": "voided",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint256",
+              "name": "eliminated",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct LastCall.Round",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getRounds",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "pool",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "market",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "outcomeToken",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "marketId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "yesId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "noId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint64",
+              "name": "expiry",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "callDeadline",
+              "type": "uint64"
+            },
+            {
+              "internalType": "enum LastCall.RoundState",
+              "name": "state",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "upCount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "downCount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "upStake",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "downStake",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "setsMinted",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "bookFilled",
+              "type": "uint256"
+            },
+            {
+              "internalType": "enum LastCall.Side",
+              "name": "bookSide",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "spent",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "returned",
+              "type": "uint256"
+            },
+            {
+              "internalType": "enum LastCall.Side",
+              "name": "winner",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bool",
+              "name": "voided",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint256",
+              "name": "eliminated",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct LastCall.Round[]",
+          "name": "out",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "join",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "joined",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "leaveLobby",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "lobbyCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "module",
+      "outputs": [
+        {
+          "internalType": "contract IBinaryMarketsModule",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        }
+      ],
+      "name": "playerStatus",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "isJoined",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "isAlive",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint256",
+          "name": "outRound",
+          "type": "uint256"
+        },
+        {
+          "internalType": "enum LastCall.Side",
+          "name": "currentCall",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "round",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint32",
+          "name": "operatorId",
+          "type": "uint32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "venueId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "marketId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint8",
+          "name": "outcomeIdx",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "rescueRedeem",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "lobbyId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "pool",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "marketId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "startRound",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
-   ],
-   "stateMutability": "nonpayable",
-   "type": "constructor"
-  },
-  {
-   "inputs": [],
-   "name": "AlreadyJoined",
-   "type": "error"
-  },
-  {
-   "inputs": [],
-   "name": "BadMarket",
-   "type": "error"
-  },
-  {
-   "inputs": [],
-   "name": "BadState",
-   "type": "error"
-  },
-  {
-   "inputs": [],
-   "name": "CallsClosed",
-   "type": "error"
-  },
-  {
-   "inputs": [],
-   "name": "LobbyFull",
-   "type": "error"
-  },
-  {
-   "inputs": [],
-   "name": "NotAlive",
-   "type": "error"
-  },
-  {
-   "inputs": [],
-   "name": "NotAllowed",
-   "type": "error"
-  },
-  {
-   "inputs": [],
-   "name": "NotEnoughPlayers",
-   "type": "error"
-  },
-  {
-   "inputs": [],
-   "name": "NothingToClaim",
-   "type": "error"
-  },
-  {
-   "inputs": [],
-   "name": "TooEarly",
-   "type": "error"
-  },
-  {
-   "inputs": [],
-   "name": "TooLate",
-   "type": "error"
-  },
-  {
-   "anonymous": false,
-   "inputs": [
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "round",
-     "type": "uint256"
-    },
-    {
-     "indexed": true,
-     "internalType": "address",
-     "name": "player",
-     "type": "address"
-    },
-    {
-     "indexed": false,
-     "internalType": "enum LastCall.Side",
-     "name": "side",
-     "type": "uint8"
-    }
-   ],
-   "name": "Called",
-   "type": "event"
-  },
-  {
-   "anonymous": false,
-   "inputs": [
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "indexed": true,
-     "internalType": "address",
-     "name": "player",
-     "type": "address"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "amount",
-     "type": "uint256"
-    }
-   ],
-   "name": "Claimed",
-   "type": "event"
-  },
-  {
-   "anonymous": false,
-   "inputs": [
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "round",
-     "type": "uint256"
-    },
-    {
-     "indexed": true,
-     "internalType": "address",
-     "name": "player",
-     "type": "address"
-    },
-    {
-     "indexed": false,
-     "internalType": "enum LastCall.Side",
-     "name": "called",
-     "type": "uint8"
-    },
-    {
-     "indexed": false,
-     "internalType": "enum LastCall.Side",
-     "name": "winner",
-     "type": "uint8"
-    }
-   ],
-   "name": "Eliminated",
-   "type": "event"
-  },
-  {
-   "anonymous": false,
-   "inputs": [
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "indexed": true,
-     "internalType": "address",
-     "name": "player",
-     "type": "address"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "players",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "pot",
-     "type": "uint256"
-    }
-   ],
-   "name": "Joined",
-   "type": "event"
-  },
-  {
-   "anonymous": false,
-   "inputs": [
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "indexed": true,
-     "internalType": "address",
-     "name": "player",
-     "type": "address"
-    }
-   ],
-   "name": "Left",
-   "type": "event"
-  },
-  {
-   "anonymous": false,
-   "inputs": [
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "name": "LobbyCancelled",
-   "type": "event"
-  },
-  {
-   "anonymous": false,
-   "inputs": [
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "indexed": true,
-     "internalType": "address",
-     "name": "creator",
-     "type": "address"
-    },
-    {
-     "indexed": false,
-     "internalType": "string",
-     "name": "name",
-     "type": "string"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "stake",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint8",
-     "name": "minPlayers",
-     "type": "uint8"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint8",
-     "name": "maxPlayers",
-     "type": "uint8"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint8",
-     "name": "maxRounds",
-     "type": "uint8"
-    }
-   ],
-   "name": "LobbyCreated",
-   "type": "event"
-  },
-  {
-   "anonymous": false,
-   "inputs": [
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "survivors",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "pot",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "payoutPerSurvivor",
-     "type": "uint256"
-    }
-   ],
-   "name": "LobbyFinished",
-   "type": "event"
-  },
-  {
-   "anonymous": false,
-   "inputs": [
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "round",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "setsMinted",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "enum LastCall.Side",
-     "name": "bookSide",
-     "type": "uint8"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "bookFilled",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "spent",
-     "type": "uint256"
-    }
-   ],
-   "name": "RoundExecuted",
-   "type": "event"
-  },
-  {
-   "anonymous": false,
-   "inputs": [
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "round",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "enum LastCall.Side",
-     "name": "winner",
-     "type": "uint8"
-    },
-    {
-     "indexed": false,
-     "internalType": "bool",
-     "name": "voided",
-     "type": "bool"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "returned",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "eliminated",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "alive",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint256",
-     "name": "pot",
-     "type": "uint256"
-    }
-   ],
-   "name": "RoundFinalized",
-   "type": "event"
-  },
-  {
-   "anonymous": false,
-   "inputs": [
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "indexed": true,
-     "internalType": "uint256",
-     "name": "round",
-     "type": "uint256"
-    },
-    {
-     "indexed": false,
-     "internalType": "address",
-     "name": "pool",
-     "type": "address"
-    },
-    {
-     "indexed": false,
-     "internalType": "address",
-     "name": "market",
-     "type": "address"
-    },
-    {
-     "indexed": false,
-     "internalType": "bytes32",
-     "name": "marketId",
-     "type": "bytes32"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint64",
-     "name": "expiry",
-     "type": "uint64"
-    },
-    {
-     "indexed": false,
-     "internalType": "uint64",
-     "name": "callDeadline",
-     "type": "uint64"
-    }
-   ],
-   "name": "RoundStarted",
-   "type": "event"
-  },
-  {
-   "inputs": [],
-   "name": "LOCK_BEFORE",
-   "outputs": [
-    {
-     "internalType": "uint64",
-     "name": "",
-     "type": "uint64"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [],
-   "name": "MAX_PLAYERS",
-   "outputs": [
-    {
-     "internalType": "uint8",
-     "name": "",
-     "type": "uint8"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [],
-   "name": "MIN_LEAD",
-   "outputs": [
-    {
-     "internalType": "uint64",
-     "name": "",
-     "type": "uint64"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "",
-     "type": "uint256"
-    },
-    {
-     "internalType": "address",
-     "name": "",
-     "type": "address"
-    }
-   ],
-   "name": "alive",
-   "outputs": [
-    {
-     "internalType": "bool",
-     "name": "",
-     "type": "bool"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "internalType": "enum LastCall.Side",
-     "name": "side",
-     "type": "uint8"
-    }
-   ],
-   "name": "call",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "",
-     "type": "uint256"
-    },
-    {
-     "internalType": "uint256",
-     "name": "",
-     "type": "uint256"
-    },
-    {
-     "internalType": "address",
-     "name": "",
-     "type": "address"
-    }
-   ],
-   "name": "calls",
-   "outputs": [
-    {
-     "internalType": "enum LastCall.Side",
-     "name": "",
-     "type": "uint8"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "name": "cancelLobby",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "name": "claim",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "",
-     "type": "uint256"
-    },
-    {
-     "internalType": "address",
-     "name": "",
-     "type": "address"
-    }
-   ],
-   "name": "claimed",
-   "outputs": [
-    {
-     "internalType": "bool",
-     "name": "",
-     "type": "bool"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [],
-   "name": "collateral",
-   "outputs": [
-    {
-     "internalType": "contract IERC20",
-     "name": "",
-     "type": "address"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "string",
-     "name": "name",
-     "type": "string"
-    },
-    {
-     "internalType": "uint256",
-     "name": "stake",
-     "type": "uint256"
-    },
-    {
-     "internalType": "uint8",
-     "name": "minPlayers",
-     "type": "uint8"
-    },
-    {
-     "internalType": "uint8",
-     "name": "maxPlayers",
-     "type": "uint8"
-    },
-    {
-     "internalType": "uint8",
-     "name": "maxRounds",
-     "type": "uint8"
-    }
-   ],
-   "name": "createLobby",
-   "outputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "stateMutability": "nonpayable",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "",
-     "type": "uint256"
-    },
-    {
-     "internalType": "address",
-     "name": "",
-     "type": "address"
-    }
-   ],
-   "name": "eliminatedInRound",
-   "outputs": [
-    {
-     "internalType": "uint256",
-     "name": "",
-     "type": "uint256"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "name": "executeRound",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "name": "finalizeRound",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "name": "getLobby",
-   "outputs": [
-    {
-     "components": [
-      {
-       "internalType": "address",
-       "name": "creator",
-       "type": "address"
-      },
-      {
-       "internalType": "string",
-       "name": "name",
-       "type": "string"
-      },
-      {
-       "internalType": "uint256",
-       "name": "stake",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint8",
-       "name": "minPlayers",
-       "type": "uint8"
-      },
-      {
-       "internalType": "uint8",
-       "name": "maxPlayers",
-       "type": "uint8"
-      },
-      {
-       "internalType": "uint8",
-       "name": "maxRounds",
-       "type": "uint8"
-      },
-      {
-       "internalType": "enum LastCall.LobbyState",
-       "name": "state",
-       "type": "uint8"
-      },
-      {
-       "internalType": "uint256",
-       "name": "pot",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "alive",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "roundCount",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "payoutPerSurvivor",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint64",
-       "name": "createdAt",
-       "type": "uint64"
-      },
-      {
-       "internalType": "uint64",
-       "name": "createdBlock",
-       "type": "uint64"
-      }
-     ],
-     "internalType": "struct LastCall.Lobby",
-     "name": "",
-     "type": "tuple"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "name": "getPlayerStates",
-   "outputs": [
-    {
-     "internalType": "address[]",
-     "name": "addrs",
-     "type": "address[]"
-    },
-    {
-     "internalType": "bool[]",
-     "name": "isAlive",
-     "type": "bool[]"
-    },
-    {
-     "internalType": "enum LastCall.Side[]",
-     "name": "currentCall",
-     "type": "uint8[]"
-    },
-    {
-     "internalType": "uint256[]",
-     "name": "outRound",
-     "type": "uint256[]"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "name": "getPlayers",
-   "outputs": [
-    {
-     "internalType": "address[]",
-     "name": "",
-     "type": "address[]"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "internalType": "uint256",
-     "name": "round",
-     "type": "uint256"
-    }
-   ],
-   "name": "getRound",
-   "outputs": [
-    {
-     "components": [
-      {
-       "internalType": "address",
-       "name": "pool",
-       "type": "address"
-      },
-      {
-       "internalType": "address",
-       "name": "market",
-       "type": "address"
-      },
-      {
-       "internalType": "address",
-       "name": "outcomeToken",
-       "type": "address"
-      },
-      {
-       "internalType": "bytes32",
-       "name": "marketId",
-       "type": "bytes32"
-      },
-      {
-       "internalType": "uint256",
-       "name": "yesId",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "noId",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint64",
-       "name": "expiry",
-       "type": "uint64"
-      },
-      {
-       "internalType": "uint64",
-       "name": "callDeadline",
-       "type": "uint64"
-      },
-      {
-       "internalType": "enum LastCall.RoundState",
-       "name": "state",
-       "type": "uint8"
-      },
-      {
-       "internalType": "uint256",
-       "name": "upCount",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "downCount",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "upStake",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "downStake",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "setsMinted",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "bookFilled",
-       "type": "uint256"
-      },
-      {
-       "internalType": "enum LastCall.Side",
-       "name": "bookSide",
-       "type": "uint8"
-      },
-      {
-       "internalType": "uint256",
-       "name": "spent",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "returned",
-       "type": "uint256"
-      },
-      {
-       "internalType": "enum LastCall.Side",
-       "name": "winner",
-       "type": "uint8"
-      },
-      {
-       "internalType": "bool",
-       "name": "voided",
-       "type": "bool"
-      },
-      {
-       "internalType": "uint256",
-       "name": "eliminated",
-       "type": "uint256"
-      }
-     ],
-     "internalType": "struct LastCall.Round",
-     "name": "",
-     "type": "tuple"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "name": "getRounds",
-   "outputs": [
-    {
-     "components": [
-      {
-       "internalType": "address",
-       "name": "pool",
-       "type": "address"
-      },
-      {
-       "internalType": "address",
-       "name": "market",
-       "type": "address"
-      },
-      {
-       "internalType": "address",
-       "name": "outcomeToken",
-       "type": "address"
-      },
-      {
-       "internalType": "bytes32",
-       "name": "marketId",
-       "type": "bytes32"
-      },
-      {
-       "internalType": "uint256",
-       "name": "yesId",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "noId",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint64",
-       "name": "expiry",
-       "type": "uint64"
-      },
-      {
-       "internalType": "uint64",
-       "name": "callDeadline",
-       "type": "uint64"
-      },
-      {
-       "internalType": "enum LastCall.RoundState",
-       "name": "state",
-       "type": "uint8"
-      },
-      {
-       "internalType": "uint256",
-       "name": "upCount",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "downCount",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "upStake",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "downStake",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "setsMinted",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "bookFilled",
-       "type": "uint256"
-      },
-      {
-       "internalType": "enum LastCall.Side",
-       "name": "bookSide",
-       "type": "uint8"
-      },
-      {
-       "internalType": "uint256",
-       "name": "spent",
-       "type": "uint256"
-      },
-      {
-       "internalType": "uint256",
-       "name": "returned",
-       "type": "uint256"
-      },
-      {
-       "internalType": "enum LastCall.Side",
-       "name": "winner",
-       "type": "uint8"
-      },
-      {
-       "internalType": "bool",
-       "name": "voided",
-       "type": "bool"
-      },
-      {
-       "internalType": "uint256",
-       "name": "eliminated",
-       "type": "uint256"
-      }
-     ],
-     "internalType": "struct LastCall.Round[]",
-     "name": "out",
-     "type": "tuple[]"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "name": "join",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "",
-     "type": "uint256"
-    },
-    {
-     "internalType": "address",
-     "name": "",
-     "type": "address"
-    }
-   ],
-   "name": "joined",
-   "outputs": [
-    {
-     "internalType": "bool",
-     "name": "",
-     "type": "bool"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    }
-   ],
-   "name": "leaveLobby",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
-  },
-  {
-   "inputs": [],
-   "name": "lobbyCount",
-   "outputs": [
-    {
-     "internalType": "uint256",
-     "name": "",
-     "type": "uint256"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [],
-   "name": "module",
-   "outputs": [
-    {
-     "internalType": "contract IBinaryMarketsModule",
-     "name": "",
-     "type": "address"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [],
-   "name": "owner",
-   "outputs": [
-    {
-     "internalType": "address",
-     "name": "",
-     "type": "address"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "internalType": "address",
-     "name": "player",
-     "type": "address"
-    }
-   ],
-   "name": "playerStatus",
-   "outputs": [
-    {
-     "internalType": "bool",
-     "name": "isJoined",
-     "type": "bool"
-    },
-    {
-     "internalType": "bool",
-     "name": "isAlive",
-     "type": "bool"
-    },
-    {
-     "internalType": "uint256",
-     "name": "outRound",
-     "type": "uint256"
-    },
-    {
-     "internalType": "enum LastCall.Side",
-     "name": "currentCall",
-     "type": "uint8"
-    }
-   ],
-   "stateMutability": "view",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "internalType": "uint256",
-     "name": "round",
-     "type": "uint256"
-    },
-    {
-     "internalType": "uint32",
-     "name": "operatorId",
-     "type": "uint32"
-    },
-    {
-     "internalType": "bytes32",
-     "name": "venueId",
-     "type": "bytes32"
-    },
-    {
-     "internalType": "bytes32",
-     "name": "marketId",
-     "type": "bytes32"
-    },
-    {
-     "internalType": "uint8",
-     "name": "outcomeIdx",
-     "type": "uint8"
-    },
-    {
-     "internalType": "uint256",
-     "name": "amount",
-     "type": "uint256"
-    }
-   ],
-   "name": "rescueRedeem",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
-  },
-  {
-   "inputs": [
-    {
-     "internalType": "uint256",
-     "name": "lobbyId",
-     "type": "uint256"
-    },
-    {
-     "internalType": "address",
-     "name": "pool",
-     "type": "address"
-    },
-    {
-     "internalType": "bytes32",
-     "name": "marketId",
-     "type": "bytes32"
-    }
-   ],
-   "name": "startRound",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
-  }
- ]
+  ]
 }

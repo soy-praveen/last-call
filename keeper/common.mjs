@@ -55,7 +55,7 @@ export async function refreshMarkets(pages = 3) {
   for (let i = 0; i < pages; i++) {
     const to = head - BigInt(i * 1000);
     try {
-      const logs = await pub.getLogs({ address: MARKET_CREATOR, event: marketCreatedEvent, fromBlock: to - 999n, toBlock: to });
+      const logs = await pub.getLogs({ event: marketCreatedEvent, fromBlock: to - 999n, toBlock: to });
       for (const l of logs) seen.set(l.args.marketId, { ...l.args, block: l.blockNumber });
     } catch {}
   }

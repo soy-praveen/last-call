@@ -16,7 +16,7 @@ const read = (fn, args = []) => pub.readContract({ ...contract, functionName: fn
 log(`keeper ${w.account.address} on ${dep.address}, series ${SERIES}`);
 
 async function tick() {
-  await refreshMarkets(2);
+  await refreshMarkets(3);
   const count = Number(await read("lobbyCount"));
   for (let id = 1; id <= count; id++) {
     try {

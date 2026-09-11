@@ -37,7 +37,6 @@ export default function LobbyPage({ id }: { id: number }) {
   const [busy, setBusy] = useState<string | null>(null);
   const [hasAllowance, setHasAllowance] = useState<boolean | null>(null);
   const feedHead = useRef<bigint | null>(null);
-  const seen = useRef<Set<string>>(new Set());
 
   // clock
   useEffect(() => {
@@ -62,15 +61,16 @@ export default function LobbyPage({ id }: { id: number }) {
       const from = feedHead.current === null ? l.createdBlock : feedHead.current + 1n;
       const { items, head } = await fetchFeed(id, from);
       if (items.length) {
+        // keep the updater pure: dedupe by key inside it, no refs mutated
         setFeed((f) => {
-          const fresh = items.filter((i) => !seen.current.has(i.key));
-          fresh.forEach((i) => seen.current.add(i.key));
-          return [...f, ...fresh];
+          const keys = new Set(f.map((i) => i.key));
+          const fresh = items.filter((i) => !keys.has(i.key));
+          return fresh.length ? [...f, ...fresh].sort((a, b) => (a.block === b.block ? 0 : a.block < b.block ? -1 : 1)) : f;
         });
       }
       feedHead.current = head;
     } catch (e) {
-      /* keep last good state */
+      console.warn("lobby load failed", e);
     }
   }, [id, now]);
 

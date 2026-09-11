@@ -30,11 +30,14 @@ Why it matters for DreamDEX:
 - It is spectator-friendly. A lobby page works without a wallet, with a live crowd bar, a kill feed, and explorer links for every transaction, so a game can be streamed or shared.
 - Lock, settle and start are permissionless on-chain calls. A keeper runs them, and the UI exposes the same buttons, so nobody depends on the operator. The keeper also keeps a public arena open at all times, and the app mints test tUSDC from the faucet contract with one click, so a judge can play within a minute of connecting.
 
+It also lives in Discord. `discord/` is a bot that gives every Discord user a custodial testnet wallet on first tap (gas from the operator, tUSDC from the faucet), so `/arena` shows the live lobby as a card with Join, UP, DOWN and Claim buttons that work on the Discord phone app, `/follow` posts every round result into a channel, and `/unclaimed` and `/basis` expose the two sister projects. The bot only acts as a player; lock, settle and start stay permissionless on chain.
+
 What is in the repo:
 
 - `contracts/LastCall.sol`: the whole game, deployed on Somnia Shannon, talking to DreamDEX pools, markets and the module directly.
 - `keeper/`: keeper that starts, locks and settles rounds on live windows; crowd bots for demos.
 - `web/`: the arena UI, Vite + React + viem, MetaMask signing.
+- `discord/`: the Discord bot (discord.js), custodial player wallets encrypted at rest, arena embed with buttons, channel feed.
 
 ## SDK and docs feedback (optional deliverable)
 

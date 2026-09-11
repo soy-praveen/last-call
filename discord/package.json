@@ -1,0 +1,16 @@
+{
+  "name": "last-call-discord",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Discord bot for Last Call: play the prediction battle royale from any channel, on phone or desktop.",
+  "scripts": {
+    "register": "node register.mjs",
+    "start": "node bot.mjs"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.5",
+    "viem": "^2.21.0"
+  }
+}

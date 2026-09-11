@@ -4,3 +4,6 @@ node_modules/
 web/dist/
 keeper/state.json
 keeper/wallets.json
+discord/state/
+discord/.env
+discord/node_modules/

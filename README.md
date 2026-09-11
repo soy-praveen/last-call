@@ -46,11 +46,31 @@ Nothing in Last Call decides an outcome. The only oracle is the DreamDEX market.
 
 Lock, settle and start are permissionless. A keeper runs them so games do not stall, and the same buttons are in the UI so anyone can push a game forward. The keeper also opens a fresh **public arena** lobby whenever no open lobby exists, so there is always a game to join, and the app header has a **Get 50 tUSDC** button that mints test collateral from the Shannon faucet contract (STT for gas comes from testnet.somnia.network).
 
+## Play from Discord
+
+`discord/` is a bot that turns any Discord channel into a lobby, on phone or desktop. Every Discord user gets a custodial Shannon testnet wallet on first use, topped up with STT by the operator and tUSDC from the faucet, so playing is one tap:
+
+- `/arena`: the current arena as an embed with **Join**, **▲ UP**, **▼ DOWN**, **Claim** and **Refresh** buttons.
+- `/join`, `/up`, `/down`, `/claim`: the same actions as slash commands.
+- `/follow`: post every round start, lock, settlement and elimination into the channel as it happens.
+- `/wallet`: address and balances, top up, export the private key to use the same wallet in MetaMask.
+- `/unclaimed [address]` and `/basis`: read-only views from the two sister projects.
+
+The bot only ever acts as a player. Lock, settle and start stay with the keeper and the permissionless buttons in the web app.
+
+```bash
+cd discord && npm install
+cp .env.example .env            # DISCORD_TOKEN, DISCORD_APP_ID, optional GUILD_ID
+npm run register                # slash commands
+npm start
+```
+
 ## Repository
 
 ```
 contracts/   LastCall.sol, solc-js compile script, viem deploy script
-keeper/      keeper.mjs (starts, locks, settles rounds), crowd.mjs (bot players for demos), discover.mjs (live windows)
+keeper/      keeper.mjs (starts, locks, settles rounds, keeps a public arena open), crowd.mjs (bot players for demos), discover.mjs (live windows)
+discord/     Discord bot: custodial player wallets, arena embed with buttons, channel feed
 web/         Vite + React app, talks to Somnia through viem, MetaMask for signing
 ```
 

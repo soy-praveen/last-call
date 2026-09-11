@@ -91,8 +91,10 @@ export default function Home() {
             max rounds
             <input value={form.rounds} onChange={(e) => setForm({ ...form, rounds: e.target.value })} />
           </label>
+        </div>
+        <div className="form-row">
           <button className="btn primary" onClick={create} disabled={busy}>
-            {busy ? "Creating…" : wallet ? "Create" : "Connect to create"}
+            {busy ? "Creating…" : wallet ? "Create lobby" : "Connect to create"}
           </button>
         </div>
       </section>

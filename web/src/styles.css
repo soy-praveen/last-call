@@ -86,7 +86,9 @@ input:focus, select:focus { border-color: var(--neon); }
 .state.done { color: var(--warn); border-color: rgba(255, 182, 72, 0.5); }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
 
-.form { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto; gap: 8px; align-items: end; }
+.form { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 8px; align-items: end; }
+.form .btn { white-space: nowrap; height: 42px; }
+.form-row { display: flex; justify-content: flex-end; margin-top: 10px; }
 .form label { display: grid; gap: 4px; font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
 
 /* HUD */

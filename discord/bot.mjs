@@ -20,7 +20,7 @@ const stateName = ["open", "live", "finished", "cancelled"];
 const sideName = (s) => (s === 1 ? "UP" : s === 2 ? "DOWN" : "no call");
 const nameOf = (address) => {
   const p = knownPlayers()[address.toLowerCase()];
-  return p ? `@${p.name}` : short(address);
+  return p && p.name ? `@${p.name}` : short(address);
 };
 
 // ------------------------------------------------------------ embeds
@@ -82,7 +82,7 @@ async function pickArena(discordId) {
   // the lobby this user is playing, else the open one, else the newest live one
   const all = await lobbies();
   if (discordId) {
-    const me = walletOf(discordId).address;
+    const me = walletOf(discordId, undefined).address;
     for (const l of all.filter((x) => x.state === 1)) {
       const alive = await pub.readContract({ ...arena, functionName: "alive", args: [BigInt(l.id), me] });
       if (alive) return l.id;

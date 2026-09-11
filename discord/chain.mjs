@@ -70,6 +70,10 @@ export function walletOf(discordId, name) {
     save();
     log(`new player ${name} ${players[discordId].address}`);
   }
+  if (name && players[discordId].name !== name) {
+    players[discordId].name = name;
+    save();
+  }
   const pk = dec(players[discordId].key);
   const account = privateKeyToAccount(pk);
   return { account, address: account.address, pk, client: createWalletClient({ chain: somniaTestnet, transport: http(RPC), account }) };

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useApp } from "../App";
 import {
   fetchLobby,
@@ -19,6 +19,15 @@ import {
   type LiveMarket,
 } from "../contract";
 import { addrUrl, txUrl, short, fmtUsd, fmtQty, clock, mmss } from "../chain";
+
+/** Re-mounts on value change so the pop animation replays. */
+function Pop({ value, className = "", children }: { value: string | number; className?: string; children: React.ReactNode }) {
+  return (
+    <span key={String(value)} className={`${className} pop`}>
+      {children}
+    </span>
+  );
+}
 
 const MIN_LEAD = 150;
 const sideName = (s: Side) => (s === Side.Up ? "UP" : s === Side.Down ? "DOWN" : "—");
@@ -167,13 +176,15 @@ export default function LobbyPage({ id }: { id: number }) {
           <div className="hud">
             <div className="stat">
               <div className="k">pot</div>
-              <div className="v neon">{fmtUsd(lobby.pot)}</div>
+              <div className="v neon">
+                <Pop value={lobby.pot.toString()}>{fmtUsd(lobby.pot)}</Pop>
+              </div>
               <div className="s">tUSDC · stake {fmtUsd(lobby.stake)}</div>
             </div>
             <div className="stat">
               <div className="k">alive</div>
               <div className="v">
-                {lobby.alive}
+                <Pop value={lobby.alive}>{lobby.alive}</Pop>
                 <span style={{ color: "var(--dim)", fontSize: 22 }}> / {players.length}</span>
               </div>
               <div className="s">{Math.max(0, players.length - lobby.alive)} eliminated</div>
@@ -181,7 +192,7 @@ export default function LobbyPage({ id }: { id: number }) {
             <div className="stat">
               <div className="k">round</div>
               <div className="v">
-                {lobby.roundCount}
+                <Pop value={lobby.roundCount}>{lobby.roundCount}</Pop>
                 <span style={{ color: "var(--dim)", fontSize: 22 }}> / {lobby.maxRounds}</span>
               </div>
               <div className="s">{curSeries || (cur ? "DreamDEX window" : "not started")}</div>
@@ -204,7 +215,9 @@ export default function LobbyPage({ id }: { id: number }) {
                   onClick={() => run("up", () => tx.call(wallet!, id, Side.Up), "Called UP")}
                 >
                   ▲ UP
-                  <small>{cur.upCount} calls</small>
+                  <small>
+                    <Pop value={cur.upCount}>{cur.upCount}</Pop> calls
+                  </small>
                 </button>
                 <button
                   className={`callbtn down ${me?.call === Side.Down ? "active" : ""}`}
@@ -212,7 +225,9 @@ export default function LobbyPage({ id }: { id: number }) {
                   onClick={() => run("down", () => tx.call(wallet!, id, Side.Down), "Called DOWN")}
                 >
                   ▼ DOWN
-                  <small>{cur.downCount} calls</small>
+                  <small>
+                    <Pop value={cur.downCount}>{cur.downCount}</Pop> calls
+                  </small>
                 </button>
               </div>
               <div className="crowd">

@@ -44,7 +44,7 @@ Nothing in Last Call decides an outcome. The only oracle is the DreamDEX market.
 | `IBinaryMarketsModule.redeem(...)` | turning winning tokens back into collateral |
 | `IOutcomeToken6909.setOperator` | letting the module pull the arena's winning tokens |
 
-Lock, settle and start are permissionless. A keeper runs them so games do not stall, and the same buttons are in the UI so anyone can push a game forward.
+Lock, settle and start are permissionless. A keeper runs them so games do not stall, and the same buttons are in the UI so anyone can push a game forward. The keeper also opens a fresh **public arena** lobby whenever no open lobby exists, so there is always a game to join, and the app header has a **Get 50 tUSDC** button that mints test collateral from the Shannon faucet contract (STT for gas comes from testnet.somnia.network).
 
 ## Repository
 

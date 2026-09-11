@@ -28,7 +28,7 @@ Why it matters for DreamDEX:
 
 - Every lobby is synchronized order flow into a specific window. A 12-player lobby is 12 real positions per round, every five minutes, for as long as the game lasts.
 - It is spectator-friendly. A lobby page works without a wallet, with a live crowd bar, a kill feed, and explorer links for every transaction, so a game can be streamed or shared.
-- Lock, settle and start are permissionless on-chain calls. A keeper runs them, and the UI exposes the same buttons, so nobody depends on the operator.
+- Lock, settle and start are permissionless on-chain calls. A keeper runs them, and the UI exposes the same buttons, so nobody depends on the operator. The keeper also keeps a public arena open at all times, and the app mints test tUSDC from the faucet contract with one click, so a judge can play within a minute of connecting.
 
 What is in the repo:
 

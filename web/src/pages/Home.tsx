@@ -103,6 +103,10 @@ export default function Home() {
         <div className="phase">
           lobbies <span className="bar" />
         </div>
+        <div className="notice" style={{ marginBottom: 12 }}>
+          There is always an open <b>public arena</b>: the keeper opens a new one whenever the last one starts. Join it, or open your own below. Testnet only: STT for gas from{" "}
+          <a href="https://testnet.somnia.network/" target="_blank" rel="noreferrer">testnet.somnia.network</a>, tUSDC from the Get 50 tUSDC button after you connect.
+        </div>
         {lobbies === null ? (
           <div className="notice">Loading lobbies from Somnia…</div>
         ) : lobbies.length === 0 ? (

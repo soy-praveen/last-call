@@ -313,6 +313,11 @@ export default function LobbyPage({ id }: { id: number }) {
                 Connect to join
               </button>
             )}
+            {lobby.state === LobbyState.Open && (
+              <span className="pill" title="Testnet only. STT pays gas; tUSDC is the stake.">
+                new here? get STT at <a href="https://testnet.somnia.network/" target="_blank" rel="noreferrer">testnet.somnia.network</a>, then use Get 50 tUSDC above
+              </span>
+            )}
             {lobby.state === LobbyState.Open && me && (
               <button className="btn ghost" disabled={busy !== null} onClick={() => run("leave", () => tx.leave(wallet!, id), "Left the lobby")}>
                 Leave

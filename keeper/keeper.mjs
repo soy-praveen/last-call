@@ -15,9 +15,22 @@ const read = (fn, args = []) => pub.readContract({ ...contract, functionName: fn
 
 log(`keeper ${w.account.address} on ${dep.address}, series ${SERIES}`);
 
+const AUTO_LOBBY = process.env.AUTO_LOBBY !== "false";
+const PUBLIC = { name: process.env.PUBLIC_NAME || "public arena", stake: BigInt(process.env.PUBLIC_STAKE || 2000000), min: 2, max: 16, rounds: Number(process.env.PUBLIC_ROUNDS || 4) };
+
+async function ensurePublicLobby(count) {
+  for (let id = count; id >= 1 && id > count - 12; id--) {
+    const l = await read("getLobby", [BigInt(id)]);
+    if (Number(l.state) === 0) return; // an open lobby exists
+  }
+  log("no open lobby: opening a public arena");
+  await send(w, { ...contract, functionName: "createLobby", args: [PUBLIC.name, PUBLIC.stake, PUBLIC.min, PUBLIC.max, PUBLIC.rounds] }, "createLobby(public)");
+}
+
 async function tick() {
   await refreshMarkets(3);
   const count = Number(await read("lobbyCount"));
+  if (AUTO_LOBBY) await ensurePublicLobby(count).catch((e) => log(`public lobby: ${(e.shortMessage || e.message).split("\n")[0]}`));
   for (let id = 1; id <= count; id++) {
     try {
       await handleLobby(id);

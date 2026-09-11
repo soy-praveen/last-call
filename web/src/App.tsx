@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext, useContext, useCallback } from "react";
 import { connectWallet, silentWallet, short, fmtUsd, type Wallet } from "./chain";
-import { collateralBalance, ARENA } from "./contract";
+import { collateralBalance, ARENA, tx } from "./contract";
 import { addrUrl } from "./chain";
 import Home from "./pages/Home";
 import Lobby from "./pages/Lobby";
@@ -30,6 +30,7 @@ export default function App() {
   const [wallet, setWallet] = useState<Wallet | null>(null);
   const [balance, setBalance] = useState<bigint | null>(null);
   const [toastMsg, setToastMsg] = useState<{ msg: string; err: boolean } | null>(null);
+  const [fauceting, setFauceting] = useState(false);
   const route = useRoute();
 
   const refreshBalance = useCallback(() => {
@@ -83,6 +84,27 @@ export default function App() {
             <a className="pill" href={addrUrl(ARENA)} target="_blank" rel="noreferrer" title="Arena contract on the Somnia explorer">
               <span className="dot" /> arena <b>{short(ARENA)}</b>
             </a>
+            {wallet && balance !== null && balance < 5_000_000n && (
+              <button
+                className="btn sm"
+                disabled={fauceting}
+                title="Mints 50 test tUSDC from the Shannon faucet contract. You need a little STT for gas."
+                onClick={async () => {
+                  setFauceting(true);
+                  try {
+                    await tx.faucet(wallet);
+                    toast("50 tUSDC minted");
+                    refreshBalance();
+                  } catch (e: any) {
+                    toast((e?.shortMessage || e?.message || String(e)).split("\n")[0].slice(0, 160) + " · need STT? testnet.somnia.network", true);
+                  } finally {
+                    setFauceting(false);
+                  }
+                }}
+              >
+                {fauceting ? "Minting…" : "Get 50 tUSDC"}
+              </button>
+            )}
             {wallet ? (
               <span className="pill">
                 <b>{short(wallet.address)}</b> {balance !== null && <span>{fmtUsd(balance)} tUSDC</span>}

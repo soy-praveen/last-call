@@ -12,6 +12,7 @@ export const erc20Abi = [
   { name: "balanceOf", type: "function", stateMutability: "view", inputs: [{ name: "a", type: "address" }], outputs: [{ type: "uint256" }] },
   { name: "allowance", type: "function", stateMutability: "view", inputs: [{ name: "o", type: "address" }, { name: "s", type: "address" }], outputs: [{ type: "uint256" }] },
   { name: "approve", type: "function", stateMutability: "nonpayable", inputs: [{ name: "s", type: "address" }, { name: "a", type: "uint256" }], outputs: [{ type: "bool" }] },
+  { name: "faucet", type: "function", stateMutability: "nonpayable", inputs: [{ name: "amount", type: "uint256" }], outputs: [] },
 ] as const;
 
 export const marketAbi = [
@@ -257,6 +258,7 @@ async function write(w: Wallet, functionName: string, args: unknown[], address: 
 export const tx = {
   createLobby: (w: Wallet, name: string, stake: bigint, min: number, max: number, rounds: number) => write(w, "createLobby", [name, stake, min, max, rounds]),
   approve: (w: Wallet) => write(w, "approve", [ARENA, 2n ** 255n], COLLATERAL, erc20Abi as unknown as Abi),
+  faucet: (w: Wallet) => write(w, "faucet", [50_000_000n], COLLATERAL, erc20Abi as unknown as Abi),
   join: (w: Wallet, id: number) => write(w, "join", [BigInt(id)]),
   leave: (w: Wallet, id: number) => write(w, "leaveLobby", [BigInt(id)]),
   call: (w: Wallet, id: number, side: Side) => write(w, "call", [BigInt(id), side]),

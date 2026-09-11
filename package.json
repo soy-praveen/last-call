@@ -1,0 +1,22 @@
+{
+  "name": "last-call",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Prediction battle royale on DreamDEX Event Contracts (Somnia).",
+  "scripts": {
+    "compile": "node contracts/compile.mjs",
+    "deploy": "node contracts/deploy.mjs",
+    "discover": "node keeper/discover.mjs",
+    "keeper": "node keeper/keeper.mjs",
+    "crowd": "node keeper/crowd.mjs"
+  },
+  "dependencies": {
+    "@somnia-chain/markets-sdk": "^0.29.0",
+    "dotenv": "^16.4.5",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "solc": "^0.8.28"
+  }
+}
